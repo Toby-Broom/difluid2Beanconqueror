@@ -6,14 +6,17 @@ I wanted to migrate data from DiFluid Café to Beanconqueror so I wrote this scr
 
 # Usage
 
-ConvertTo-Beanconqueror.ps1 -File -JSON -force - NoTime
+ConvertTo-Beanconqueror.ps1 -File -JSON -force -NoTime
 
-The switches:
+The switch -File the path of that csv file that should be converted e.g. C:\User\files\BrewRecord_bean.csv
 
--File the path of that csv file that should be converted e.g. C:\User\files\BrewRecord.csv
--JSON if you want a preview of what the data will look like
--force I had some unusual data that I wanted to check so there is check that the duration of the extraction is in the range of 10 to 40 seconds and the mass of the collected coffee is in the range of 30 to 50 g, this will ignore these checks and export the data anyway.
--NoTime Also to manage some unusal data e.g. if my shot was under 10 s, then I wanted for force the to a duration of 0 s
+The switch -JSON if you want a preview of what the data will look like.
+
+The switch -force I had some unusual data that I wanted to check so there is check that the duration of the extraction is in the range of 10 to 40 seconds and the mass of the collected coffee is in the range of 30 to 50 g, this will ignore these checks and export the data anyway.
+
+The switch -NoTime Also to manage some unusal data e.g. if my shot was under 10 s, then I wanted for force the to a duration of 0 s.
+
+You can combine the switches.
 
 > [!WARNING]
 > Since DiFluid App does not store beans in exported data, I edited the BrewRecord file name to be BrewRecord_bean, in the Beanconqueror app I manually created the bean and there is a static lookup table of the beans parsed from the file name.
@@ -26,3 +29,37 @@ The switches:
 
 > [!WARNING]
 > You will need to merge the created JSON files in to the exported Beanconqueror.json
+
+
+## Example Usage
+
+Command Line: ConvertTo-Beanconqueror.ps1 -File C:\User\files\BrewRecord_bean.csv
+
+Output : C:\User\files\BrewRecord.json
+
+Command Line: ConvertTo-Beanconqueror.ps1 -File C:\User\files\BrewRecord_bean.csv -JSON
+
+Output : {
+  "grind_size": "7",
+  "grind_weight": 18.0,
+  "method_of_preparation": "eb42f58a-35fd-4886-8154-3012e397506b",
+  "mill": "ed6b03a0-ab2d-4ceb-9b09-ea4d570bd200",
+  "mill_speed": 0,
+  "mill_timer": 0, .............
+
+Command Line: ConvertTo-Beanconqueror.ps1 -File C:\User\files\BrewRecord_bean.csv -force
+
+Input: 	1716194803207,May 20th 2024 Brew,User,Espresso,g,°C,17,0,93,47,,G2024050310050367092573868129,15,
+
+Output : C:\User\files\BrewRecord.json, with unsual numbers
+
+Command Line: ConvertTo-Beanconqueror.ps1 -File C:\User\files\BrewRecord_bean.csv -NoTime
+
+Input: 	..... [00:00, 00:01, 00:01, 00:01, 00:01]
+
+Output : C:\User\files\BrewRecord.json, with time set to 0
+
+
+
+
+

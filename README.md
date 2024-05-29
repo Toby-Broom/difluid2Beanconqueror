@@ -4,6 +4,8 @@ It converts the csv files (generated with version 4.0.3 of the DiFluid Café App
 
 I wanted to migrate data from DiFluid Café to Beanconqueror so I wrote this script.
 
+I had some unusual data that I wanted to check so there is check that the duration of the extraction is in the range of 10 to 40 seconds and the mass of the collected coffee is in the range of 30 to 50 g.
+
 # Usage
 
 ConvertTo-Beanconqueror.ps1 -File -JSON -force -NoTime
@@ -12,7 +14,7 @@ The switch -File the path of that csv file that should be converted e.g. C:\User
 
 The switch -JSON if you want a preview of what the data will look like.
 
-The switch -force I had some unusual data that I wanted to check so there is check that the duration of the extraction is in the range of 10 to 40 seconds and the mass of the collected coffee is in the range of 30 to 50 g, this will ignore these checks and export the data anyway.
+The switch -force , this will ignore unusual checks and export the data anyway.
 
 The switch -NoTime Also to manage some unusal data e.g. if my shot was under 10 s, then I wanted for force the to a duration of 0 s.
 
